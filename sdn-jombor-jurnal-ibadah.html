@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SD Negeri Jombor — Jurnal Ibadah</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --ink:#182420;
+    --cream:#FAF7EF;
+    --paper:#FFFFFF;
+    --green-deep:#1F4D3D;
+    --green-mid:#2E6B54;
+    --green-soft:#E5EEE7;
+    --gold:#C08A26;
+    --gold-soft:#F3E3BE;
+    --line:#DCD4C2;
+    --muted:#6B7570;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Manrope',sans-serif;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:0 0 64px;}
+
+  /* ---- header ---- */
+  .topbar{
+    background:var(--green-deep);
+    color:var(--cream);
+    padding:22px 20px 26px;
+    position:relative;
+    overflow:hidden;
+    border-bottom-left-radius:28px;
+    border-bottom-right-radius:28px;
+  }
+  .topbar::after{
+    content:"";
+    position:absolute;
+    right:-30px; top:-30px;
+    width:140px;height:140px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(240,220,170,0.16) 0%, rgba(240,220,170,0) 70%);
+  }
+  .arch-row{display:flex;gap:6px;margin-bottom:14px;}
+  .arch{
+    width:14px;height:20px;
+    border-top-left-radius:14px;border-top-right-radius:14px;
+    background:var(--gold-soft);
+    opacity:0.85;
+  }
+  .school-name{font-size:22px;color:#fff;}
+  .school-tag{font-size:13px;color:var(--gold-soft);margin-top:4px;font-weight:500;}
+  .role-pill{
+    display:inline-flex;gap:8px;margin-top:16px;
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.18);
+    border-radius:999px;padding:4px;
+  }
+  .role-pill button{
+    border:none;background:transparent;color:var(--cream);
+    font-family:'Manrope';font-weight:700;font-size:13px;
+    padding:8px 16px;border-radius:999px;cursor:pointer;
+  }
+  .role-pill button.active{background:var(--gold);color:var(--green-deep);}
+
+  .content{padding:20px;}
+  .card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:18px;
+    margin-bottom:16px;
+  }
+  .card h2{font-size:18px;margin-bottom:12px;}
+  label.field-label{font-size:12px;color:var(--muted);font-weight:600;display:block;margin-bottom:6px;}
+  select, input[type=text]{
+    width:100%;padding:11px 12px;border-radius:10px;
+    border:1px solid var(--line);background:#fff;
+    font-family:'Manrope';font-size:15px;color:var(--ink);
+    margin-bottom:12px;
+  }
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    background:var(--green-deep);color:#fff;border:none;
+    padding:12px 18px;border-radius:10px;font-weight:700;font-size:14px;
+    cursor:pointer;width:100%;font-family:'Manrope';
+  }
+  .btn.gold{background:var(--gold);color:var(--green-deep);}
+  .btn.ghost{background:transparent;color:var(--green-deep);border:1px solid var(--green-deep);}
+  .btn.small{width:auto;padding:8px 14px;font-size:13px;}
+  .row{display:flex;gap:10px;}
+  .row > *{flex:1;}
+
+  .check-list{display:flex;flex-direction:column;gap:8px;margin-bottom:6px;}
+  .check-item{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:12px 14px;border-radius:10px;
+    background:var(--green-soft);
+    border:1px solid transparent;
+    cursor:pointer;
+    user-select:none;
+  }
+  .check-item.on{
+    background:var(--green-deep);
+    color:#fff;
+  }
+  .check-item .cname{font-weight:600;font-size:14.5px;}
+  .check-item .cpoin{font-size:12px;opacity:0.75;}
+  .check-box{
+    width:22px;height:22px;border-radius:7px;
+    border:2px solid var(--green-mid);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .check-item.on .check-box{border-color:var(--gold-soft);background:var(--gold);}
+  .check-box svg{opacity:0;width:14px;height:14px;}
+  .check-item.on .check-box svg{opacity:1;}
+
+  .note-input{margin-top:2px;}
+
+  .today-date{font-size:13px;color:var(--muted);margin-bottom:14px;}
+
+  .point-badge{
+    display:flex;align-items:baseline;gap:6px;
+    background:var(--gold-soft);border-radius:10px;
+    padding:12px 14px;margin-bottom:14px;
+  }
+  .point-badge .num{font-family:'Fraunces';font-size:26px;font-weight:700;color:var(--green-deep);}
+  .point-badge .lbl{font-size:12px;color:var(--muted);font-weight:600;}
+
+  .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:7px;}
+  .bar-day{font-size:11px;color:var(--muted);width:28px;font-weight:700;}
+  .bar-track{flex:1;height:10px;background:var(--green-soft);border-radius:6px;overflow:hidden;}
+  .bar-fill{height:100%;background:var(--green-mid);border-radius:6px;}
+  .bar-val{font-size:11px;color:var(--muted);width:26px;text-align:right;}
+
+  table.rekap{width:100%;border-collapse:collapse;font-size:12.5px;}
+  table.rekap th, table.rekap td{padding:7px 6px;text-align:center;border-bottom:1px solid var(--line);}
+  table.rekap th{color:var(--muted);font-weight:700;font-size:11px;}
+  table.rekap td.name{text-align:left;font-weight:600;}
+  table.rekap tr.top td.name::before{content:"★ ";color:var(--gold);}
+
+  .empty{
+    text-align:center;padding:26px 10px;color:var(--muted);font-size:13.5px;
+  }
+  .divider{height:1px;background:var(--line);margin:16px 0;}
+  .hint{font-size:12px;color:var(--muted);margin-top:-4px;margin-bottom:12px;}
+  .tag{
+    display:inline-block;font-size:11px;font-weight:700;
+    background:var(--green-soft);color:var(--green-deep);
+    padding:3px 9px;border-radius:999px;margin-bottom:8px;
+  }
+  select#classFilter{margin-bottom:12px;}
+  .print-only{display:none;}
+  @media print{
+    .no-print{display:none !important;}
+    .print-only{display:block;}
+    body{background:#fff;}
+    .card{border:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="arch-row">
+      <div class="arch"></div><div class="arch"></div><div class="arch"></div>
+      <div class="arch"></div><div class="arch"></div><div class="arch"></div>
+    </div>
+    <div class="school-name display">SD Negeri Jombor</div>
+    <div class="school-tag">Jurnal Salat, Duha &amp; Mengaji</div>
+    <div class="role-pill no-print">
+      <button id="btnRoleSiswa" class="active">Siswa</button>
+      <button id="btnRoleGuru">Guru</button>
+    </div>
+  </div>
+
+  <div class="content" id="content"><!-- diisi JS --></div>
+</div>
+
+<script>
+const POIN = { sholat: 2, dhuha: 3, mengaji: 3 };
+const WAKTU = [
+  {key:'subuh', label:'Subuh'},
+  {key:'dzuhur', label:'Dzuhur'},
+  {key:'ashar', label:'Ashar'},
+  {key:'maghrib', label:'Maghrib'},
+  {key:'isya', label:'Isya'},
+];
+const HARI = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+
+let role = 'siswa';
+let siswaList = [];
+let selectedId = null;
+
+const $ = (sel, root=document) => root.querySelector(sel);
+const contentEl = () => $('#content');
+
+function todayStr(d = new Date()){
+  return d.toISOString().slice(0,10);
+}
+function fmtDateLong(dateStr){
+  const d = new Date(dateStr + 'T00:00:00');
+  return d.toLocaleDateString('id-ID', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+}
+function lastNDates(n){
+  const out = [];
+  const now = new Date();
+  for(let i=n-1;i>=0;i--){
+    const d = new Date(now);
+    d.setDate(d.getDate()-i);
+    out.push(todayStr(d));
+  }
+  return out;
+}
+function poinHarian(rec){
+  if(!rec) return 0;
+  let p = 0;
+  WAKTU.forEach(w => { if(rec[w.key]) p += POIN.sholat; });
+  if(rec.dhuha) p += POIN.dhuha;
+  if(rec.mengaji) p += POIN.mengaji;
+  return p;
+}
+
+async function loadSiswaList(){
+  try{
+    const r = await window.storage.get('siswa-list', true);
+    siswaList = r ? JSON.parse(r.value) : [];
+  }catch(e){ siswaList = []; }
+}
+async function saveSiswaList(){
+  await window.storage.set('siswa-list', JSON.stringify(siswaList), true);
+}
+async function getChecklist(id, date){
+  try{
+    const r = await window.storage.get(`checklist:${id}:${date}`, true);
+    return r ? JSON.parse(r.value) : null;
+  }catch(e){ return null; }
+}
+async function setChecklist(id, date, data){
+  await window.storage.set(`checklist:${id}:${date}`, JSON.stringify(data), true);
+}
+
+/* ---------------- RENDER: SISWA ---------------- */
+async function renderSiswa(){
+  await loadSiswaList();
+  const el = contentEl();
+
+  if(!selectedId){
+    el.innerHTML = `
+      <div class="card">
+        <span class="tag">Mulai</span>
+        <h2>Siapa kamu hari ini?</h2>
+        <div class="hint">Pilih namamu dari daftar, atau daftar dulu kalau ini kunjungan pertamamu.</div>
+        <label class="field-label">Nama siswa</label>
+        <select id="pickSiswa">
+          <option value="">— pilih nama —</option>
+          ${siswaList.map(s=>`<option value="${s.id}">${s.nama} (${s.kelas})</option>`).join('')}
+        </select>
+        <button class="btn" id="btnPilih">Lanjut</button>
+        <div class="divider"></div>
+        <label class="field-label">Belum terdaftar? Isi di sini</label>
+        <div class="row">
+          <input type="text" id="newNama" placeholder="Nama lengkap">
+          <input type="text" id="newKelas" placeholder="Kelas (mis. 4B)">
+        </div>
+        <button class="btn ghost" id="btnDaftar">Daftarkan Nama Baru</button>
+      </div>
+    `;
+    $('#btnPilih').onclick = () => {
+      const v = $('#pickSiswa').value;
+      if(!v){ return; }
+      selectedId = v;
+      renderSiswa();
+    };
+    $('#btnDaftar').onclick = async () => {
+      const nama = $('#newNama').value.trim();
+      const kelas = $('#newKelas').value.trim();
+      if(!nama || !kelas){ alert('Isi nama dan kelas dulu ya.'); return; }
+      const id = 's_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
+      siswaList.push({id, nama, kelas});
+      await saveSiswaList();
+      selectedId = id;
+      renderSiswa();
+    };
+    return;
+  }
+
+  const siswa = siswaList.find(s => s.id === selectedId);
+  if(!siswa){ selectedId = null; return renderSiswa(); }
+
+  const date = todayStr();
+  const rec = (await getChecklist(selectedId, date)) || {};
+
+  el.innerHTML = `
+    <div class="card">
+      <span class="tag">${siswa.kelas}</span>
+      <h2>${siswa.nama}</h2>
+      <div class="today-date">${fmtDateLong(date)}</div>
+
+      <div class="point-badge">
+        <span class="num" id="poinHariIni">${poinHarian(rec)}</span>
+        <span class="lbl">poin hari ini</span>
+      </div>
+
+      <label class="field-label">Salat Fardu</label>
+      <div class="check-list" id="listSholat">
+        ${WAKTU.map(w => checkItemHtml(w.key, w.label, POIN.sholat, rec[w.key])).join('')}
+      </div>
+
+      <div class="divider"></div>
+
+      <label class="field-label">Duha</label>
+      <div class="check-list">
+        ${checkItemHtml('dhuha', 'Salat Duha', POIN.dhuha, rec.dhuha)}
+      </div>
+
+      <div class="divider"></div>
+
+      <label class="field-label">Mengaji</label>
+      <div class="check-list">
+        ${checkItemHtml('mengaji', 'Mengaji hari ini', POIN.mengaji, rec.mengaji)}
+      </div>
+      <input type="text" id="catatanMengaji" class="note-input" placeholder="Catatan (mis. Surah Al-Kahfi ayat 1–10)" value="${rec.catatanMengaji ? rec.catatanMengaji.replace(/"/g,'&quot;') : ''}">
+
+      <button class="btn gold" id="btnSimpan">Simpan Catatan Hari Ini</button>
+      <button class="btn ghost" id="btnGanti" style="margin-top:10px;">Ganti Nama</button>
+    </div>
+
+    <div class="card">
+      <h2>Rekap 7 Hari Terakhir</h2>
+      <div id="mingguan"></div>
+    </div>
+
+    <div class="card">
+      <h2>Total Bulan Ini</h2>
+      <div id="bulanan"></div>
+    </div>
+  `;
+
+  const state = {...rec};
+
+  el.querySelectorAll('.check-item').forEach(item => {
+    item.onclick = () => {
+      const key = item.dataset.key;
+      state[key] = !state[key];
+      item.classList.toggle('on', !!state[key]);
+      const total = poinHarian(state);
+      $('#poinHariIni').textContent = total;
+    };
+  });
+
+  $('#btnSimpan').onclick = async () => {
+    state.catatanMengaji = $('#catatanMengaji').value.trim();
+    await setChecklist(selectedId, date, state);
+    await renderRekapWidgets(selectedId);
+    const btn = $('#btnSimpan');
+    btn.textContent = 'Tersimpan ✓';
+    setTimeout(()=>{ if(btn) btn.textContent = 'Simpan Catatan Hari Ini'; }, 1600);
+  };
+  $('#btnGanti').onclick = () => { selectedId = null; renderSiswa(); };
+
+  await renderRekapWidgets(selectedId);
+}
+
+function checkItemHtml(key, label, poin, on){
+  return `
+    <div class="check-item ${on ? 'on':''}" data-key="${key}">
+      <div>
+        <div class="cname">${label}</div>
+        <div class="cpoin">+${poin} poin</div>
+      </div>
+      <div class="check-box">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+  `;
+}
+
+async function renderRekapWidgets(id){
+  const dates7 = lastNDates(7);
+  const recs7 = await Promise.all(dates7.map(d => getChecklist(id, d)));
+  const maxPoin = POIN.sholat*5 + POIN.dhuha + POIN.mengaji;
+  const mingguanEl = $('#mingguan');
+  if(mingguanEl){
+    mingguanEl.innerHTML = dates7.map((d, i) => {
+      const p = poinHarian(recs7[i]);
+      const day = new Date(d+'T00:00:00').getDay();
+      const pct = Math.round((p/maxPoin)*100);
+      return `
+        <div class="bar-row">
+          <div class="bar-day">${HARI[day]}</div>
+          <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+          <div class="bar-val">${p}</div>
+        </div>`;
+    }).join('');
+  }
+
+  const now = new Date();
+  const daysInMonth = now.getDate();
+  const datesMonth = [];
+  for(let i=0;i<daysInMonth;i++){
+    const d = new Date(now.getFullYear(), now.getMonth(), i+1);
+    datesMonth.push(todayStr(d));
+  }
+  const recsMonth = await Promise.all(datesMonth.map(d => getChecklist(id, d)));
+  const totalBulan = recsMonth.reduce((sum, r) => sum + poinHarian(r), 0);
+  const hariAktif = recsMonth.filter(r => poinHarian(r) > 0).length;
+  const bulananEl = $('#bulanan');
+  if(bulananEl){
+    bulananEl.innerHTML = `
+      <div class="point-badge">
+        <span class="num">${totalBulan}</span>
+        <span class="lbl">total poin bulan ini</span>
+      </div>
+      <div class="hint" style="margin-bottom:0;">Aktif ${hariAktif} dari ${daysInMonth} hari berjalan.</div>
+    `;
+  }
+}
+
+/* ---------------- RENDER: GURU ---------------- */
+async function renderGuru(){
+  await loadSiswaList();
+  const el = contentEl();
+
+  if(siswaList.length === 0){
+    el.innerHTML = `<div class="card"><div class="empty">Belum ada siswa yang mendaftar lewat menu Siswa.</div></div>`;
+    return;
+  }
+
+  const kelasSet = [...new Set(siswaList.map(s=>s.kelas))].sort();
+
+  el.innerHTML = `
+    <div class="card no-print">
+      <span class="tag">Guru</span>
+      <h2>Laporan Ibadah Siswa</h2>
+      <label class="field-label">Filter kelas</label>
+      <select id="classFilter">
+        <option value="">Semua kelas</option>
+        ${kelasSet.map(k=>`<option value="${k}">${k}</option>`).join('')}
+      </select>
+      <button class="btn ghost small" id="btnPrint">Cetak / Simpan sebagai PDF</button>
+    </div>
+    <div class="card" id="ranking"><h2>Peringkat Poin Bulan Ini</h2><div id="rankingBody">Memuat…</div></div>
+    <div class="card">
+      <h2>Detail 7 Hari Terakhir</h2>
+      <div style="overflow-x:auto;">
+        <table class="rekap" id="detailTable"></table>
+      </div>
+    </div>
+  `;
+
+  $('#btnPrint').onclick = () => window.print();
+  $('#classFilter').onchange = () => renderGuruTables($('#classFilter').value);
+
+  await renderGuruTables('');
+}
+
+async function renderGuruTables(kelasFilter){
+  const list = kelasFilter ? siswaList.filter(s=>s.kelas===kelasFilter) : siswaList;
+  const dates7 = lastNDates(7);
+
+  const rows = await Promise.all(list.map(async s => {
+    const recs = await Promise.all(dates7.map(d => getChecklist(s.id, d)));
+    const totalMinggu = recs.reduce((sum,r)=>sum+poinHarian(r),0);
+    return { siswa: s, recs, totalMinggu };
+  }));
+
+  // ranking pakai total minggu ini sbg proxy cepat, ditampilkan sbg 7 hari terakhir
+  const ranked = [...rows].sort((a,b)=>b.totalMinggu-a.totalMinggu);
+  const rankingBody = $('#rankingBody');
+  if(rankingBody){
+    if(ranked.length===0){
+      rankingBody.innerHTML = `<div class="empty">Tidak ada siswa di kelas ini.</div>`;
+    } else {
+      rankingBody.innerHTML = `
+        <table class="rekap">
+          <tr><th style="text-align:left;">Nama</th><th>Kelas</th><th>Poin (7 hari)</th></tr>
+          ${ranked.map((r,i)=>`
+            <tr class="${i===0 && r.totalMinggu>0 ? 'top':''}">
+              <td class="name">${r.siswa.nama}</td>
+              <td>${r.siswa.kelas}</td>
+              <td>${r.totalMinggu}</td>
+            </tr>`).join('')}
+        </table>
+      `;
+    }
+  }
+
+  const detailTable = $('#detailTable');
+  if(detailTable){
+    detailTable.innerHTML = `
+      <tr>
+        <th style="text-align:left;">Nama</th>
+        ${dates7.map(d=>`<th>${HARI[new Date(d+'T00:00:00').getDay()]}</th>`).join('')}
+        <th>Total</th>
+      </tr>
+      ${rows.map(r=>`
+        <tr>
+          <td class="name">${r.siswa.nama}</td>
+          ${r.recs.map(rec=>`<td>${poinHarian(rec) || '–'}</td>`).join('')}
+          <td><strong>${r.totalMinggu}</strong></td>
+        </tr>`).join('')}
+    `;
+  }
+}
+
+/* ---------------- ROLE SWITCH ---------------- */
+function setRole(r){
+  role = r;
+  $('#btnRoleSiswa').classList.toggle('active', r==='siswa');
+  $('#btnRoleGuru').classList.toggle('active', r==='guru');
+  if(r==='siswa') renderSiswa(); else renderGuru();
+}
+$('#btnRoleSiswa').onclick = () => setRole('siswa');
+$('#btnRoleGuru').onclick = () => setRole('guru');
+
+setRole('siswa');
+</script>
+</body>
+</html>
