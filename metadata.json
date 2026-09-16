@@ -1,0 +1,6 @@
+{
+  "name": "Buku Mutaba'ah Siswa - SD Negeri Jombor",
+  "description": "Aplikasi monitoring salat fardu 5 waktu, salat dhuha, mengaji, rekap mingguan, bintang kebaikan, dan cetak mutaba'ah siswa SD Negeri Jombor.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
